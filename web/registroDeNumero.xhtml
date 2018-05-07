@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Registro Numeros</title>
+    </h:head>
+    <h:body>
+        
+            <h:form id="frmNumeros">
+                <p:panel header="Registro de Numeros" footer="APU 2018" >
+                    <p:panelGrid columns="2">
+                        <p:panel id="pnlIzquierdo" >
+                            <h:panelGrid columns="3">
+                                <p:outputLabel value="Ingrese Numero"/>
+                                
+                                <p:inputNumber id="txtNum" decimalPlaces="2" value="#{tablaNumeroFormBean.numero}"/>
+                                <!--<p:inputText id="txtNum" value="#{tablaNumeroFormBean.numero}"/>-->
+                                <p:commandButton value="Agregar" update="tblNumeros " 
+                                             action="#{tablaNumeroFormBean.agregarNumeroEnTabla()}"/>
+                            </h:panelGrid>
+                            <h:panelGrid columns="3" >
+                                <p:panel >
+                                    <p:panel><p:outputLabel value="Maximo:"/></p:panel>
+                                    <p:panel><p:outputLabel id="lblMaximo" value="#{tablaNumeroFormBean.obtenerMaximo()}" style="width: 100%"/></p:panel>
+                                    
+                                </p:panel>
+                                <p:panel>
+                                    <p:panel><p:outputLabel value="Minimo"/></p:panel>
+                                    <p:panel><p:outputLabel id="lblMinimo" value="#{tablaNumeroFormBean.obtenerMinimo()}"/></p:panel>
+                                    
+                                    
+                                </p:panel>
+                                <p:panel>
+                                    <p:panel><p:outputLabel value="Promedio"/></p:panel>
+                                    <p:panel><p:outputLabel id="lblPromedio" value="#{tablaNumeroFormBean.obtenerPromedio()}" /></p:panel>
+                                    
+                                    
+                                </p:panel>
+                                
+                            </h:panelGrid>
+                            <p:commandButton value="Calcular" update="lblMaximo lblMinimo lblPromedio" style="width: 100%"/>
+                        </p:panel>
+                        
+                    
+                    <h:panelGrid id="pnlDerecho" >
+                        <p:dataTable id="tblNumeros" value="#{tablaNumeroFormBean.tabla.numeros}" var="t" >
+                            
+                            <p:column headerText="Numero Ingresado" style="width: 65px;">
+                                <p:outputLabel value="#{t.numero}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </h:panelGrid>
+                    </p:panelGrid>
+                    
+                    
+                    
+                </p:panel>
+                
+            </h:form>
+            
+        
+    </h:body>
+</html>
+
