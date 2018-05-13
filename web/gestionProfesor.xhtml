@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <p:panel>
+            <p:growl id="grwMensajeProfesor" showDetail="true" showSummary="false"/>
+        <h:form id="frmNuevoProfesor" >
+            <p:panel header="Registrar Profesor">
+                    <p:panelGrid id="pnlNuevoProfesor" columns="2" >
+                        <p:outputLabel for="txtLegajo" value="LEGAJO"/>
+                        <p:inputText id="txtLegajo"  value="#{profesorFormBean.nuevoProfesor.legajo}" required="true"/>
+                        <p:outputLabel for="txtApellido" value="APELLIDO"/>
+                        <p:inputText id="txtApellido" value="#{profesorFormBean.nuevoProfesor.apellido}" required="true"/>
+                        <p:outputLabel for="txtNombre" value="NOMBRE"/>
+                        <p:inputText id="txtNombre" value="#{profesorFormBean.nuevoProfesor.nombre}" required="true"/>
+                        <p:outputLabel for="txtEspecialidad" value="ESPECIALIDAD"/>
+                        <p:inputText id="txtEspecialidad" value="#{profesorFormBean.nuevoProfesor.especialidad}" required="true"/>                
+                    </p:panelGrid>
+                    <p:commandButton  id="btnNuevoProfesor"
+                                 value="Registrar Profesor"
+                                 update=":grwMensajeProfesor :frmVentanaProfesorNuevo"
+                                 oncomplete="PF('altaProfesor').show()"
+                                 actionListener="#{profesorFormBean.asignarNuevoProfesor()}"
+                                 />
+            </p:panel>
+        </h:form>
+        <h:form id="frmProfesores" >
+            <p:panel id="pnlProfesor" header="Profesores Registrados" >
+                <p:dataTable id="tblProfesor" value="#{profesorBean.gestorProfesor.profesores}" var="p">
+                    <p:column headerText="Legajo" style="width: 4%;">
+                        <p:outputLabel value="#{p.legajo}"/>
+                    </p:column>
+                    <p:column headerText="Apellido" style="width: 100px">
+                        <p:outputLabel value="#{p.apellido}"/>
+                    </p:column>
+                    <p:column headerText="Nombre" style="width: 100px">
+                        <p:outputLabel value="#{p.nombre}"/>
+                    </p:column>
+                    <p:column headerText="Especialidad" style="width: 150px">
+                        <p:outputLabel value="#{p.especialidad}"/>
+                    </p:column>
+                </p:dataTable>                
+            </p:panel>
+        </h:form>
+        
+        <h:form id="frmVentanaProfesorNuevo">
+            <p:panel>
+                <p:dialog id="dlgNuevoProfesor"  header="Nuevo Profesor" resizable="false" modal="true"
+                          widgetVar="altaProfesor"
+                          showEffect="explode" hideEffect="explode">
+                    <h:panelGrid columns="2" cellpadding="3">
+                        <p:outputLabel value="Legajo:"/>
+                        <p:inputText value="#{profesorFormBean.profesorBean.gestorProfesor.nuevoProfesor.legajo}" disabled="true"/>
+                        <p:outputLabel value="Apellido"/>
+                        <p:inputText value="#{profesorFormBean.profesorBean.gestorProfesor.nuevoProfesor.apellido}" disabled="true"/>
+                        <p:outputLabel value="Nombre"/>
+                        <p:inputText value="#{profesorFormBean.profesorBean.gestorProfesor.nuevoProfesor.nombre}" disabled="true"/>
+                        <p:outputLabel value="Especialidad:"/>
+                        <p:inputText value="#{profesorFormBean.profesorBean.gestorProfesor.nuevoProfesor.especialidad}" disabled="true"/>
+                    </h:panelGrid>
+                    <p:panel style="text-align: center">
+                    <p:commandButton value="Aceptar"
+                                     update=":frmProfesores :frmNuevoProfesor"
+                                     actionListener="#{profesorFormBean.agregarUnProfesor()}"
+                                     />
+                    </p:panel>
+                </p:dialog>
+            </p:panel>
+        </h:form>
+        
+            
+
+
+                    
+        </p:panel>
+    </h:body>
+</html>
+
