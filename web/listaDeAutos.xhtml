@@ -1,0 +1,97 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      
+      >
+      
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        
+        <h:form id="frmAutos">
+            <p:growl id="msj" showDetail="true"/>
+            <p:dataTable id="tblAutos" value="#{autoFormBean.listaAutoBean.listaAuto.autos}" var="auto">
+                    <p:column headerText="Marca">
+                        <p:outputLabel value="#{auto.marca}"/>
+                    </p:column>
+                    <p:column headerText="Modelo">
+                        <p:outputLabel value="#{auto.modelo}"/>
+                    </p:column>
+                    <p:column headerText="Color">
+                        <p:outputLabel value="#{auto.color}"/>
+                    </p:column>
+                    <p:column headerText="Precio">
+                        <p:outputLabel value="#{auto.precio}"/>
+                    </p:column>
+                    <p:column headerText="Estado">
+                        <p:outputLabel value="#{auto.estado}"/>
+                    </p:column>
+
+                    <p:column headerText="Editar">                    
+                        <p:commandButton id="btnSeleccinar"
+                                         update=":frmModificarAuto"
+                                         actionListener="#{autoFormBean.listaAutoBean.listaAuto.seleccionarAuto(auto)}"
+                                         oncomplete="PF('editarAuto').show();"
+                                         value="Editar" 
+                                         icon="ui-icon-pencil"/>                     
+                    </p:column>
+            </p:dataTable>               
+        </h:form>
+        
+        <!--MOSTRAR EN VENTANA EL AUTO SELECCIONADO-->
+        <h:form id="frmModificarAuto">
+            <p:dialog id="dlgModificarAuto" header="Editar Auto" widgetVar="editarAuto" resizable="false"
+                          showEffect="explode" hideEffect="explode">
+                    <p:panel id="pnlModificar">
+                        
+                        <h:panelGrid id="pnlModificarAuto" columns="2" cellpadding="3">
+
+                                <p:outputLabel value="MARCA" style="font-weight: bold"/>
+                                <p:inputText value="#{autoFormBean.listaAutoBean.listaAuto.autoSeleccionado.marca}"/>
+                                <p:outputLabel value="MODELO" style="font-weight: bold"/>
+                                <p:inputText value="#{autoFormBean.listaAutoBean.listaAuto.autoSeleccionado.color}"/>
+                                <p:outputLabel value="COLOR" style="font-weight: bold"/>
+                                <p:inputText value="#{autoFormBean.listaAutoBean.listaAuto.autoSeleccionado.modelo}"/>
+                                <p:outputLabel value="PRECIO" style="font-weight: bold"/>
+                                <p:inputText value="#{autoFormBean.listaAutoBean.listaAuto.autoSeleccionado.precio}"/>
+                                <p:outputLabel value="ESTADO" style="font-weight: bold"/>
+                                <p:inputText value="#{autoFormBean.listaAutoBean.listaAuto.autoSeleccionado.estado}"/>
+                                <h:panelGroup/>
+                                <p:commandButton id="btnActualizarAuto"
+                                                 value="Aceptar"
+                                                 actionListener="#{autoFormBean.vizualizarVentanaDeConfirmacion()}"/>
+                        </h:panelGrid>
+                        
+                    </p:panel>
+                </p:dialog>            
+        </h:form>
+        
+        <h:form id="frmConfirmarModidificacion">
+            <p:confirmDialog id="dlgConfirmarModificacion" message="Confirmar Modificaion?"
+                             header="CONFIRMACION DE OPERACION" severity="alert"
+                             widgetVar="confirmaModificaionAuto">
+                <p:commandButton icon="btnConfirmaModificacionAuto"
+                                 value="SI"
+                                 update="frmAutos"
+                                 actionListener="#{autoFormBean.actualizarAuto()}"/>
+                <p:commandButton icon="btnNoConfirmaModificacionAuto"
+                                 value="NO"
+                                 oncomplete="PF('confirmaModificacionAuto').hide();"
+                                 update="frmConfirmarModidificacion"
+                                 />                
+            </p:confirmDialog >
+            
+        </h:form>
+        
+            
+            
+        
+            
+           
+       
+    </h:body>
+</html>
+
